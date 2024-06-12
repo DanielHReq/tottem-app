@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import { Outlet, Link } from "react-router-dom";
 
 export default function HomePage () {
 
     return (
         <div>
-
+              
             <h3>Cardápio</h3>
 
             <ItemList />
@@ -14,53 +14,44 @@ export default function HomePage () {
     )
 }
 
-
-
-
-/**
- * Ainda não utilizado
- * 
- * Serve para separar os item pelo seu tipo
- */
-function ItemSection () {
-
-    return (
-        <div className="mt-4 mb-1">
-            <h4>Section</h4>
-        </div>
-    )
-}
-/*
-function ItemListGroup () {
-
-    return (
-        <div className="list-group">
-        </div>
-    )
-}
-*/
 function ItemListGroupItem ({item}) {
 
-    //return (<h5>{JSON.stringify(item)}</h5>);
-
-    
     return (
         <div className="list-group-item">
             <div className="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{item.nome}</h5>
-                <small>Valor: {item.valor}</small>
+                <div className="col-6">
+                    <h5 class="mb-1">{item.nome}</h5>
+                    <small>Valor: {item.valor}</small>
+                </div>
+                <div className="col-6">
+                    <QuantidadeItem />
+                    <Link className="btn btn-danger"  to={"/item/"+item.id}>Descricao</Link>
+                </div>
             </div>
-            <p>{item.descricao}</p>
         </div>
     )
 }
 
-
+function QuantidadeItem () {
+    return (
+        <div className="btn-group"  role="group" > 
+            <button type="button" className="btn btn-primary"></button>
+            <p>qtd</p>
+            <button type="button" className="btn btn-primary"></button>
+        </div>
+    );
+}
 
 function ItemList () {
 
     const [itens, setItens] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
+
+
+    useEffect(() => {
+        showItens();
+    },
+    [])
 
 
     const showItens = async (e) => {
@@ -85,7 +76,6 @@ function ItemList () {
     const showItem = (item) => {
         return(
             <li>
-
                 <ItemListGroupItem item={item} />
             </li>
         )
@@ -94,13 +84,12 @@ function ItemList () {
     return (
         <div>
             {errorMessage && <p>{errorMessage}</p>}
-            <button onClick={showItens}>Listar itens</button> Podemos trocar este botão por uma caixa de texto
             { itens ? (
-                <div className="list-group">
-                    {itens.map(showItem)}
+                <div>
+                    <div className="list-group">
+                        {itens.map(showItem)}
+                    </div>
                 </div>
-                    
-
                 ) : null
             }
         </div>

@@ -1,43 +1,51 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-//import App from './App';
-import App from './App.js';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 
-import MiscellaneousPage from './screens/MiscellaneousPage.js';
-import BuPage from './screens/Bu.js';
-import ImagemPage from './screens/Imagem.js';
+import Home from './screens/Home.js';
+import Template from './screens/Template.js';
+import Item from './screens/Item.js';
+import Pedidos from './screens/Pedidos.js';
+import Pagamento from './screens/Pagamento.js';
+import Confirmacao from './screens/Confirmacao.js';
 
 
 /*const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <App />
+  <Home />
 );*/
 
 
 const router = createBrowserRouter([
   {
       path: "/",
-      element: <App />,
+      element: <Template />,
       //errorElement: <ErrorScreen/>,
       children: [
-            {
-              path: "miscellaneous",
-              element: <MiscellaneousPage />
-            },
-            {
-              path: "bu",
-              element: <BuPage />
-            },              
-            {
-              path: "imagem",
-              element: <ImagemPage />
-            }
-
+          {
+            path: "cardapio",
+            element: <Home />
+          },  
+          {
+            path: "item/:id",
+            element: <Item />
+          },              
+          {
+            path: "pedidos",
+            element: <Pedidos />
+          },              
+          {
+            path: "pagamento",
+            element: <Pagamento />
+          },              
+          {
+            path: "confirmacao",
+            element: <Confirmacao />
+          }
       ]
   }
 ]);
