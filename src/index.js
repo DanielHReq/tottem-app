@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 
 import Home from './screens/Home.js';
+import Template from './screens/Template.js';
 import Item from './screens/Item.js';
 import Pedidos from './screens/Pedidos.js';
 import Pagamento from './screens/Pagamento.js';
@@ -22,11 +23,15 @@ root.render(
 const router = createBrowserRouter([
   {
       path: "/",
-      element: <Home />,
+      element: <Template />,
       //errorElement: <ErrorScreen/>,
       children: [
           {
-            path: "item",
+            path: "cardapio",
+            element: <Home />
+          },  
+          {
+            path: "item/:id",
             element: <Item />
           },              
           {
