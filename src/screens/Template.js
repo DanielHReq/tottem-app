@@ -4,9 +4,9 @@ export default function Template () {
 
     return (
         <div>
-            <header> Pizzaria </header>
+            <header>Header</header>
             <Outlet />
-            <footer>Pizza bye</footer>
+            <footer>Footer</footer>
         </div>
     )
 }

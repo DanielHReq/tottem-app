@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 
 
 export default function Item() {
@@ -9,6 +9,9 @@ export default function Item() {
     <div >
         <header>Descricao do Item</header>
         <ItemListDescricao id={id}/>
+
+        <ReturnHome />
+
     </div>
   );
 }
@@ -46,7 +49,7 @@ function ItemListDescricao ({id}) {
     [])
 
     return (
-        <div >
+        <div>
             { item ? (
                 <div>
                     <small>Nome: {item.nome}</small>
@@ -61,3 +64,17 @@ function ItemListDescricao ({id}) {
 }
 
 
+function ReturnHome () {
+
+    const [clicked, setClicked] = useState(false);
+
+    return (
+        <div>
+            { clicked && (
+                <Navigate to="/cardapio" />
+            )}
+
+            <button className="btn btn-primary" onClick={() => setClicked(true)}>Voltar</button>
+        </div>
+    )
+}

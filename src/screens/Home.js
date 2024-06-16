@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Outlet, Link } from "react-router-dom";
 
+
 export default function HomePage () {
 
     return (
@@ -10,38 +11,120 @@ export default function HomePage () {
             <h3>Cardápio</h3>
 
             <ItemList />
+
+            <BtnPedido />
+
         </div>
     )
 }
 
+
+/**
+ * Depende do conteúdo salvo em localStorage. Executa na seguinte ordem:
+ * 
+ * 1. Caso não haja nenhum Item armazenado, mantém na página
+ * 2. Caso não haja token salvo, redireciona para a página de login
+ * 3. Redireciona para a página de confirmação
+ *  
+ * @returns button que chama realizaPedido
+ */
+function BtnPedido () {
+/*
+    const realizaPedido = async () => {
+
+        if (!pedido) {
+            // caso pedido vazio
+
+            return
+        }
+
+        localStorage.setItem("pedido", pedido);
+
+        localStorage.getItem("token", token);
+        
+        if (!token) {
+            // caso não logado - tela de login
+        }
+
+        // tela de confirmação
+
+    }
+*/
+    return (
+        <div className="d-flex w-100">
+            <button className="btn btn-warning" onClick={null}>Realizar Pedido</button>
+        </div>
+    )
+}
+
+/**
+ * 
+ * @param {*} item Dicionário com 1 Item
+ * @returns list-group-item
+ */
 function ItemListGroupItem ({item}) {
 
     return (
         <div className="list-group-item">
             <div className="d-flex w-100 justify-content-between">
                 <div className="col-6">
-                    <h5 class="mb-1">{item.nome}</h5>
+                    <h5 className="mb-1">{item.nome}</h5>
                     <small>Valor: {item.valor}</small>
                 </div>
                 <div className="col-6">
-                    <QuantidadeItem />
-                    <Link className="btn btn-danger"  to={"/item/"+item.id}>Descricao</Link>
+                    <QuantidadeItem id={item.id}/>
+                    <Link className="btn btn-danger" to={"/item/"+item.id}>Descricao</Link>
                 </div>
             </div>
         </div>
     )
 }
 
-function QuantidadeItem () {
+
+/**
+ * 
+ * @returns btn-group para subtrair ou adicionar itens e mostrar a quantidade atual
+ */
+function QuantidadeItem ({id}) {
+
+    const [quantidade, setQuantidade] = useState (0);
+
+
+    const removeItem = async () => {
+        if (quantidade) setQuantidade(quantidade - 1);
+    }
+
+    const addItem = async () => {
+        setQuantidade(quantidade + 1)
+    }
+
+
+    useEffect (() => {
+
+        if (quantidade) localStorage.setItem(id, quantidade)
+        else {
+            let localQuantidade = localStorage.getItem(id)
+            if (localQuantidade) setQuantidade(localQuantidade)
+            else localStorage.removeItem(id)
+        }
+
+    }, [quantidade])
+
+
     return (
-        <div className="btn-group"  role="group" > 
-            <button type="button" className="btn btn-primary"></button>
-            <p>qtd</p>
-            <button type="button" className="btn btn-primary"></button>
+        <div className="btn-group"  role="group"> 
+            <button type="button" className="btn btn-primary" onClick={removeItem}></button>
+            <p>{quantidade}</p>
+            <button type="button" className="btn btn-primary" onClick={addItem}></button>
         </div>
     );
 }
 
+
+/**
+ * 
+ * @returns list-group de Item
+ */
 function ItemList () {
 
     const [itens, setItens] = useState(null);
