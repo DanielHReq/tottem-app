@@ -1,3 +1,13 @@
+/**
+ * PÁGINA DO CARDÁPIO
+ * 
+ * contém funcionalidades associadas ao cardápio do tottem
+ * 
+ * cardápio ---> item
+ * cardápio ---> pagamento
+ * 
+ */
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Outlet, Link } from "react-router-dom";
@@ -52,7 +62,7 @@ function BtnPedido () {
 */
     return (
         <div className="d-flex w-100">
-            <button className="btn btn-warning" onClick={null}>Realizar Pedido</button>
+            <Link className="btn btn-warning" to="/pagamento">Realizar Pedido</Link>
         </div>
     )
 }
