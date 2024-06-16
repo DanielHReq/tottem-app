@@ -30,6 +30,8 @@ export default function Pagamento() {
 
             <RevisaoPedido />
 
+            <PaymentArea />
+
         </div>
     );
 }
@@ -151,6 +153,17 @@ function LoginArea() {
 }
 
 function PaymentArea() {
-
+  return (
+    <div>
+        <BtnPagamento />
+    </div>
+  )
 }
 
+function BtnPagamento () {
+  return (
+      <div className="d-flex w-100">
+          <Link className="btn btn-warning" to="/confirmacao">Pagar Pedido</Link>
+      </div>
+  )
+}
