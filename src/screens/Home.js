@@ -87,10 +87,12 @@ function ItemListGroupItem ({item}) {
  */
 function QuantidadeItem ({id}) {
 
-    const [quantidade, setQuantidade] = useState (0);
+    const [quantidade, setQuantidade] = useState (
+        (localStorage.getItem(id)) ? Number(localStorage.getItem(id)) : 0
+    );
 
 
-    const removeItem = async () => {
+    const subItem = async () => {
         if (quantidade) setQuantidade(quantidade - 1);
     }
 
@@ -102,18 +104,14 @@ function QuantidadeItem ({id}) {
     useEffect (() => {
 
         if (quantidade) localStorage.setItem(id, quantidade)
-        else {
-            let localQuantidade = localStorage.getItem(id)
-            if (localQuantidade) setQuantidade(localQuantidade)
-            else localStorage.removeItem(id)
-        }
+        else localStorage.removeItem(id)
 
     }, [quantidade])
 
 
     return (
         <div className="btn-group"  role="group"> 
-            <button type="button" className="btn btn-primary" onClick={removeItem}></button>
+            <button type="button" className="btn btn-primary" onClick={subItem}></button>
             <p>{quantidade}</p>
             <button type="button" className="btn btn-primary" onClick={addItem}></button>
         </div>
