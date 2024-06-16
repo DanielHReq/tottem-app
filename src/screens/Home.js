@@ -16,8 +16,8 @@ import { Outlet, Link } from "react-router-dom";
 export default function HomePage () {
 
     return (
-        <div>
-              
+        <div className="mx-5">
+
             <h3>Cardápio</h3>
 
             <ItemList />
@@ -75,18 +75,20 @@ function BtnPedido () {
 function ItemListGroupItem ({item}) {
 
     return (
-        <div className="list-group-item">
-            <div className="d-flex w-100 justify-content-between">
-                <div className="col-6">
-                    <h5 className="mb-1">{item.nome}</h5>
-                    <small>Valor: {item.valor}</small>
+        <a href={"/item/"+item.id} className="list-group-item rounded border-0 mb-2 text-bg-info">
+            <div className="d-flex w-100">
+                <div className="col-2 text-bg-warning">
+                    <div className="mx-auto p-1 text-bg-primary"></div>
+                </div>
+                <div className="col-6 p-2 pt-3">
+                    <p className="mb-1">{item.nome}</p>
+                    <h5>R$ {item.valor}</h5>
                 </div>
                 <div className="col-6">
                     <QuantidadeItem id={item.id}/>
-                    <Link className="btn btn-danger" to={"/item/"+item.id}>Descricao</Link>
                 </div>
             </div>
-        </div>
+        </a>
     )
 }
 
@@ -166,9 +168,7 @@ function ItemList () {
 
     const showItem = (item) => {
         return(
-            <li>
-                <ItemListGroupItem item={item} />
-            </li>
+            <ItemListGroupItem item={item} />
         )
     }
 
