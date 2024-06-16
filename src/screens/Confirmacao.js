@@ -1,31 +1,32 @@
+import { Link } from "react-router-dom";
 
 export default function Confirmacao() {
-  return (
-    <div >
-        <h3>Confirmacao</h3>
+    return (
+        <div >
+            <h3>Confirmacao</h3>
 
-        <confimacaoPedido />
+            <ConfirmacaoPedido />
 
-    </div>
-  );
+            <BtnConfirmacao />
+        </div>
+    );
 }
 
 
-function confirmacaoPedido(){
-  return(
-    <div className="d-flex justify-content-center">
-      <h5>Pedido realizado com sucesso!</h5>
+function ConfirmacaoPedido() {
 
-      <BtnConfirmacao />
-
-    </div>
-  )
+    return (
+        <div className="d-flex justify-content-center">
+            <h5>Pedido realizado com sucesso!</h5>
+        </div>
+    )
 }
 
-function BtnConfirmacao () {
-  return (
-      <div className="d-flex w-100">
-          <Link className="btn btn-warning" to="/home">Ok</Link>
-      </div>
-  )
+function BtnConfirmacao() {
+
+    return (
+        <div className="d-flex justify-content-center">
+            <Link className="btn btn-warning" to="/cardapio">Ok</Link>
+        </div>
+    )
 }

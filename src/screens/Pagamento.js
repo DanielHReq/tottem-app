@@ -15,6 +15,7 @@
 
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 
 
@@ -72,7 +73,7 @@ function ItemList() {
     const showItens = async () => {
 
         localItemList = []
-        
+
         for (let i = 0; i < localStorage.length; i++) {
             let key_name
             key_name = localStorage.key(i)
@@ -80,7 +81,7 @@ function ItemList() {
             if (key_name == "token") continue;
 
             try {
-                const response = await axios.get("http://localhost:8080/cardapio/"+key_name, {
+                const response = await axios.get("http://localhost:8080/cardapio/" + key_name, {
                     responseType: "json"
                 })
 
@@ -110,13 +111,13 @@ function ItemList() {
     return (
         <div>
             {errorMessage && <p>{errorMessage}</p>}
-            { itemList ? (
+            {itemList ? (
                 <div>
                     <div className="list-group">
                         {itemList.map(showItem)}
                     </div>
                 </div>
-                ) : null
+            ) : null
             }
         </div>
     );
@@ -128,7 +129,7 @@ function ItemList() {
  * @param {*} pair Array com 0: Dicionário com 1 Item ; 1: Quantidade associada ao Item
  * @returns list-group-item
  */
-function ItemQuantidadeListGroupItem ({pair}) {
+function ItemQuantidadeListGroupItem({ pair }) {
 
     return (
         <div className="list-group-item">
@@ -153,17 +154,17 @@ function LoginArea() {
 }
 
 function PaymentArea() {
-  return (
-    <div>
-        <BtnPagamento />
-    </div>
-  )
+    return (
+        <div>
+            <BtnPagamento />
+        </div>
+    )
 }
 
-function BtnPagamento () {
-  return (
-      <div className="d-flex w-100">
-          <Link className="btn btn-warning" to="/confirmacao">Pagar Pedido</Link>
-      </div>
-  )
+function BtnPagamento() {
+    return (
+        <div className="d-flex w-100">
+            <Link className="btn btn-warning" to="/confirmacao">Pagar Pedido</Link>
+        </div>
+    )
 }
