@@ -2,19 +2,21 @@ import { Link } from "react-router-dom";
 
 export default function Confirmacao() {
     return (
-        <div className="my-5">
+        <div className="d-flex flex-column justify-content-center align-items-center">
             <ConfirmacaoPedido />
 
+            <img src="https://img.freepik.com/vetores-premium/ilustracao-de-marca-de-verificacao-verde_645153-10.jpg" class="pt-3 ps-1 w-10 "></img>
+                    
             <BtnConfirmacao />
+
         </div>
     );
 }
 
-
 function ConfirmacaoPedido() {
 
     return (
-        <div className="d-flex justify-content-center">
+        <div className="text_avisos">
             <h5>Pedido realizado com sucesso!</h5>
         </div>
     )
@@ -24,7 +26,7 @@ function BtnConfirmacao() {
 
     return (
         <div className="d-flex justify-content-center">
-            <Link className="btn btn-warning" to="/cardapio">Ok</Link>
+            <Link className="text_avisos" to="/cardapio">Cardápio</Link>
         </div>
     )
 }

@@ -16,14 +16,14 @@ import { Outlet, Link } from "react-router-dom";
 export default function HomePage() {
 
     return (
-        <div className="mx-5 mt-5">
-
-            <h3>Cardápio</h3>
+        <div className="d-flex flex-column  align-items-center gap-5">
+            <div className="w-25">
+                <h3 className="text_avisos">Cardápio</h3>
+            </div>
 
             <ItemList />
 
             <BtnPedido />
-
         </div>
     )
 }
@@ -61,8 +61,10 @@ function BtnPedido() {
         }
     */
     return (
-        <div className="col">
-            <Link className="btn btn-warning float-end" to="/pagamento">Finalizar Pedido</Link>
+        <div className="col pb-5">
+            <Link className="btn btn_finaliza_pedido float-end" to="/pagamento">
+                <div className="text_avisos">Finalizar Pedido</div>
+            </Link>
         </div>
     )
 }
@@ -75,29 +77,23 @@ function BtnPedido() {
 function ItemListGroupItem({ item }) {
 
     return (
-        <div className="list-group-item rounded border-0 mb-2 text-bg-info">
-            <div className="d-flex w-100">
-                <div className="col-2 text-bg-warning">
-                    <div className="mx-auto p-1 text-bg-primary">Imagem</div>
-                </div>
+        <div className="row box_item rounded-1 border-1 mb-4 w-25  top-50 start-50">
+                <img src="https://uploads.metropoles.com/wp-content/uploads/2022/05/03124339/hamburguer-8.jpg" class="col pt-2 ps-2 w-50 "></img>
                 <div className="col p-2 pt-3">
                     <p className="mb-1">{item.nome}</p>
-                    <h5>R$ {item.valor}</h5>
+                    <h5>R${item.valor}</h5>
                 </div>
-                <div className="col p-2">
-                    <div className="float-end">
-                        <QuantidadeItem id={item.id} /><br/>
-                        <Link className="link-dark link-underline link-underline-opacity-0" to={"/item/" + item.id} >detalhes</Link>
-                    </div>
+                <div className="col p-2 pt-3">
+                    <QuantidadeItem id={item.id} /><br/>
+                    <Link className="text_item float-end" to={"/item/" + item.id} >detalhes</Link>
                 </div>
-            </div>
         </div>
     )
 }
 
 
 /**
- * 
+ * Ok
  * @returns btn-group para subtrair ou adicionar itens e mostrar a quantidade atual
  */
 function QuantidadeItem({ id }) {
@@ -126,9 +122,9 @@ function QuantidadeItem({ id }) {
 
     return (
         <div className="btn-group d-flex align-items-center" role="group">
-            <button type="button" className="btn btn-primary rounded-circle" onClick={subItem}>-</button>
-            <div className="mx-1">{quantidade}</div>
-            <button type="button" className="btn btn-primary rounded-circle" onClick={addItem}>+</button>
+            <button type="button" className="btn text_item_descricao" onClick={subItem}><i class="bi bi-dash-circle"></i></button>
+            <div className="mx-1 text_item_descricao">{quantidade}</div>
+            <button type="button" className="btn text_item_descricao" onClick={addItem}><i class="bi bi-plus-circle"></i></button>
         </div>
     );
 }
@@ -136,7 +132,7 @@ function QuantidadeItem({ id }) {
 
 /**
  * 
- * @returns list-group de Item
+ * @returns list-group de Itbox_itemem
  */
 function ItemList() {
 

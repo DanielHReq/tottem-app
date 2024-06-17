@@ -1,0 +1,32 @@
+
+    .btn_finaliza_pedido, .btn_finaliza_pedido:hover, .btn_finaliza_pedido:visited {
+        background-color: #fcf7d1;
+    }
+
+    .background_color, .background_color:hover {
+        background-color: #a9a17a;
+    }
+
+    .box_item, .box_item:hover {
+        background-color: #b52c00;
+    }
+
+    .text_item, .text_item:hover {
+        color: #fcf7d1;
+    }
+
+    .text_item_descricao, .text_item_descricao:hover {
+        color: #ffffff;
+    }
+
+    .text_avisos, .text_avisos:hover {
+        color: #8c0005;
+    }
+
+    .btn_pagamento, .btn_pagamento:hover{
+        background-color: #008c0e;
+    }
+
+    .text_pagamento, .text_pagamento:hover {
+        color: #444444;
+    }
