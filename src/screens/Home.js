@@ -13,10 +13,10 @@ import axios from "axios";
 import { Outlet, Link } from "react-router-dom";
 
 
-export default function HomePage () {
+export default function HomePage() {
 
     return (
-        <div className="mx-5">
+        <div className="mx-5 mt-5">
 
             <h3>Cardápio</h3>
 
@@ -38,31 +38,31 @@ export default function HomePage () {
  *  
  * @returns button que chama realizaPedido
  */
-function BtnPedido () {
-/*
-    const realizaPedido = async () => {
-
-        if (!pedido) {
-            // caso pedido vazio
-
-            return
+function BtnPedido() {
+    /*
+        const realizaPedido = async () => {
+    
+            if (!pedido) {
+                // caso pedido vazio
+    
+                return
+            }
+    
+            localStorage.setItem("pedido", pedido);
+    
+            localStorage.getItem("token", token);
+            
+            if (!token) {
+                // caso não logado - tela de login
+            }
+    
+            // tela de confirmação
+    
         }
-
-        localStorage.setItem("pedido", pedido);
-
-        localStorage.getItem("token", token);
-        
-        if (!token) {
-            // caso não logado - tela de login
-        }
-
-        // tela de confirmação
-
-    }
-*/
+    */
     return (
-        <div className="d-flex w-100">
-            <Link className="btn btn-warning" to="/pagamento">Realizar Pedido</Link>
+        <div className="col">
+            <Link className="btn btn-warning float-end" to="/pagamento">Finalizar Pedido</Link>
         </div>
     )
 }
@@ -72,23 +72,26 @@ function BtnPedido () {
  * @param {*} item Dicionário com 1 Item
  * @returns list-group-item
  */
-function ItemListGroupItem ({item}) {
+function ItemListGroupItem({ item }) {
 
     return (
-        <a href={"/item/"+item.id} className="list-group-item rounded border-0 mb-2 text-bg-info">
+        <div className="list-group-item rounded border-0 mb-2 text-bg-info">
             <div className="d-flex w-100">
                 <div className="col-2 text-bg-warning">
-                    <div className="mx-auto p-1 text-bg-primary"></div>
+                    <div className="mx-auto p-1 text-bg-primary">Imagem</div>
                 </div>
-                <div className="col-6 p-2 pt-3">
+                <div className="col p-2 pt-3">
                     <p className="mb-1">{item.nome}</p>
                     <h5>R$ {item.valor}</h5>
                 </div>
-                <div className="col-6">
-                    <QuantidadeItem id={item.id}/>
+                <div className="col p-2">
+                    <div className="float-end">
+                        <QuantidadeItem id={item.id} /><br/>
+                        <Link className="link-dark link-underline link-underline-opacity-0" to={"/item/" + item.id} >detalhes</Link>
+                    </div>
                 </div>
             </div>
-        </a>
+        </div>
     )
 }
 
@@ -97,9 +100,9 @@ function ItemListGroupItem ({item}) {
  * 
  * @returns btn-group para subtrair ou adicionar itens e mostrar a quantidade atual
  */
-function QuantidadeItem ({id}) {
+function QuantidadeItem({ id }) {
 
-    const [quantidade, setQuantidade] = useState (
+    const [quantidade, setQuantidade] = useState(
         (localStorage.getItem(id)) ? Number(localStorage.getItem(id)) : 0
     );
 
@@ -113,7 +116,7 @@ function QuantidadeItem ({id}) {
     }
 
 
-    useEffect (() => {
+    useEffect(() => {
 
         if (quantidade) localStorage.setItem(id, quantidade)
         else localStorage.removeItem(id)
@@ -122,10 +125,10 @@ function QuantidadeItem ({id}) {
 
 
     return (
-        <div className="btn-group"  role="group"> 
-            <button type="button" className="btn btn-primary" onClick={subItem}></button>
-            <p>{quantidade}</p>
-            <button type="button" className="btn btn-primary" onClick={addItem}></button>
+        <div className="btn-group d-flex align-items-center" role="group">
+            <button type="button" className="btn btn-primary rounded-circle" onClick={subItem}>-</button>
+            <div className="mx-1">{quantidade}</div>
+            <button type="button" className="btn btn-primary rounded-circle" onClick={addItem}>+</button>
         </div>
     );
 }
@@ -135,7 +138,7 @@ function QuantidadeItem ({id}) {
  * 
  * @returns list-group de Item
  */
-function ItemList () {
+function ItemList() {
 
     const [itens, setItens] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
@@ -144,12 +147,12 @@ function ItemList () {
     useEffect(() => {
         showItens();
     },
-    [])
+        [])
 
 
     const showItens = async (e) => {
         //e.preventDefault();
-        
+
         try {
             const response = await axios.get("http://localhost:8080/cardapio/", {
                 responseType: "json", // Specify responseType as JSON
@@ -157,7 +160,7 @@ function ItemList () {
 
             console.log(response);
             setItens(response.data);
-            
+
             console.log("Showing itens successful!");
             // Optionally, you can redirect the user to another page or perform other actions upon successful login
         } catch (error) {
@@ -167,21 +170,19 @@ function ItemList () {
     };
 
     const showItem = (item) => {
-        return(
+        return (
             <ItemListGroupItem item={item} />
         )
     }
 
     return (
-        <div>
+        <div className="my-4">
             {errorMessage && <p>{errorMessage}</p>}
-            { itens ? (
-                <div>
-                    <div className="list-group">
-                        {itens.map(showItem)}
-                    </div>
+            {itens ? (
+                <div className="list-group">
+                    {itens.map(showItem)}
                 </div>
-                ) : null
+            ) : null
             }
         </div>
     );

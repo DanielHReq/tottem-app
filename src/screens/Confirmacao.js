@@ -2,9 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Confirmacao() {
     return (
-        <div >
-            <h3>Confirmacao</h3>
-
+        <div className="my-5">
             <ConfirmacaoPedido />
 
             <BtnConfirmacao />

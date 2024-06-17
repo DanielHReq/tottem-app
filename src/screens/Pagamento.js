@@ -25,13 +25,15 @@ import { Link } from "react-router-dom";
 export default function Pagamento() {
 
     return (
-        <div>
+        <div className="mx-5 mt-5">
 
-            <h3>Pagamento</h3>
-
-            <RevisaoPedido />
+            <Link to="http://localhost:3000/cardapio"><h3>Pagamento</h3></Link>
 
             <PaymentArea />
+
+            <LoginArea />
+            
+            <RevisaoPedido />
 
         </div>
     );
@@ -46,6 +48,7 @@ function RevisaoPedido() {
 
     return (
         <div>
+            <h4>Revise os itens do pedido</h4>
             <ItemList />
         </div>
     )
@@ -102,9 +105,7 @@ function ItemList() {
 
     const showItem = (itemQuantidadePair) => {
         return (
-            <li>
-                <ItemQuantidadeListGroupItem pair={itemQuantidadePair} />
-            </li>
+            <ItemQuantidadeListGroupItem pair={itemQuantidadePair} />
         )
     }
 
@@ -151,6 +152,25 @@ function ItemQuantidadeListGroupItem({ pair }) {
 
 function LoginArea() {
 
+    return (
+        <div>
+            <h4>Confirme seu cadastro</h4>
+            <div className="row">
+                <div className="mb-3 col-6">
+                    <label for="name" className="form-label">Nome</label>
+                    <input type="text" className="form-control" id="customer-name"/>
+                </div>
+                <div className="mb-3 col-6">
+                    <label for="name" className="form-label">Celular</label>
+                    <input type="text" className="form-control" id="customer-phone"/>
+                </div>
+                <div className="mb-3 col-6">
+                    <label for="name" className="form-label">Mesa</label>
+                    <input type="number" className="form-control" id="customer-table"/>
+                </div>
+            </div>
+        </div>
+    )
 }
 
 function PaymentArea() {
