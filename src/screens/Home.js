@@ -158,7 +158,7 @@ function ItemList() {
                 responseType: "json", // Specify responseType as JSON
             });
 
-            console.log(response);
+            console.log(response.data);
             setItens(response.data);
 
             console.log("Showing itens successful!");
