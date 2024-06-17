@@ -184,7 +184,16 @@ function PaymentArea() {
     )
 }
 
+
+/**
+ * Assim que este botão for apertado, deve acontecer a chamada de POST Pedido no backend
+ * 
+ * o body da requisição recebe BigDecimal valor, String status, String comentario, Map<Long, Integer> itensPedido
+ * 
+ * @returns 
+ */
 function BtnPagamento() {
+    
     return (
         <div className="col">
             <Link className="btn btn-warning float-end" to="/confirmacao">Finalizar Pedido</Link>
