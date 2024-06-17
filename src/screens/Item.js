@@ -7,10 +7,9 @@ export default function Item() {
     const {id} = useParams()
   return (
     <div >
-        <header>Descricao do Item</header>
-        <ItemListDescricao id={id}/>
-
         <ReturnHome />
+
+        <ItemListDescricao id={id}/>
 
     </div>
   );
@@ -51,10 +50,13 @@ function ItemListDescricao ({id}) {
     return (
         <div>
             { item ? (
-                <div>
-                    <small>Nome: {item.nome}</small>
-                    <small>Descricao: {item.descricao}</small>
-                    <small>Valor: {item.valor}</small>
+                <div class="card">
+                    <img src="https://uploads.metropoles.com/wp-content/uploads/2022/05/03124339/hamburguer-8.jpg" class="card-img-top" alt="..."></img>
+                    <div class="card-body">
+                    <h5 class="card-title">{item.nome}</h5>
+                    <p class="card-text">{item.descricao}</p>
+                    <h5 class="card-title" color="#fcf7di">R${item.valor}</h5>
+                    </div>
                 </div>
                 ) : null
             }
@@ -62,7 +64,16 @@ function ItemListDescricao ({id}) {
     )
 
 }
-
+/**
+ * 
+    <div>
+        <img src="..." class="card-img-top" alt="...">
+        <small>Nome: {item.nome}</small>
+        <small>Descricao: {item.descricao}</small>
+        <small>Valor: {item.valor}</small>
+    </div>
+ * 
+ */
 
 function ReturnHome () {
 
@@ -74,7 +85,7 @@ function ReturnHome () {
                 <Navigate to="/cardapio" />
             )}
 
-            <button className="btn btn-primary" onClick={() => setClicked(true)}>Voltar</button>
+            <button className="btn btn-primary" onClick={() => setClicked(true)}>item</button>
         </div>
     )
 }
