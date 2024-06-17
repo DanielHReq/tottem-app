@@ -178,7 +178,8 @@ function LoginArea() {
 function PaymentArea() {
     return (
         <div>
-            Area de pagamento
+            <h4>Realize o pagamento</h4>
+            código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix
         </div>
     )
 }
