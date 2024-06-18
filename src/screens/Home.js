@@ -16,18 +16,27 @@ import { Outlet, Link } from "react-router-dom";
 export default function HomePage() {
 
     return (
-        <div className="d-flex flex-column align-items-center gap-5">
-            <div className="w-25">
+        <div>
+            <div className="d-flex flex-column align-items-center gap-4">
                 <h3 className="text_avisos">Cardápio</h3>
+                <ItemList />
             </div>
-
-            <ItemList />
-
-            <BtnPedido />
+            <Footer />
         </div>
     )
 }
 
+
+function Footer() {
+
+    return (
+        <div className="fixed-bottom d-flex flex-column align-items-center">
+            <div className="my-4 w-75">
+                <BtnPedido />
+            </div>
+        </div>
+    )
+}
 
 /**
  * Depende do conteúdo salvo em localStorage. Executa na seguinte ordem:
