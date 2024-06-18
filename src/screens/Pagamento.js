@@ -244,9 +244,11 @@ function PaymentArea() {
  */
 function BtnPagamento() {
     
-    const [token, setToken] = useState(null);
-
     const [valorPedido, setValorPedido] = useState(0);
+
+    const [pedidoFinalizado, setPedidoFinalizado] = useState(false);
+
+    let token;
 
     /**
      * Responsável pelo login 
@@ -265,11 +267,9 @@ function BtnPagamento() {
 
             const response = await axios.post("http://localhost:8080/auth/loginreg", request_body);
 
-            const t = response.data['token'];
+            token = response.data['token'];
 
-            console.log("Login successful! Token:", t);
-
-            setToken(t);
+            console.log("Login successful! Token:", token);
 
         } catch (error) {
             console.error("Error: ", error);
@@ -279,7 +279,7 @@ function BtnPagamento() {
     const realizaPedido = async (e) => {
         e.preventDefault();
 
-        const paresIdQuantidade = new Map
+        const paresIdQuantidade = new Map()
 
         for (let i = 0; i < localStorage.length; i++) {
             let key_name
@@ -291,19 +291,25 @@ function BtnPagamento() {
 
         }
 
-        // BigDecimal valor, String status, **Integer mesa**, Map<Long, Integer> itensPedido
+        // BigDecimal valor, String status, String mesa, String celular, Map<Long, Integer> itensPedido
         const request_body = {
             "valor": valorPedido,
             "status": "Enviado",
             "mesa": globalMesa,
-            "itensPedido": paresIdQuantidade
+            "celular": globalPhoneNumber,
+            "itensPedido": JSON.parse(JSON.stringify(Object.fromEntries(paresIdQuantidade)))
         }
+        
+        console.log(request_body);
+        console.log(JSON.parse(JSON.stringify(Object.fromEntries(paresIdQuantidade))))
+        
 
         try {
             const response = await axios.post("http://localhost:8080/pedidos/", request_body, {
                 headers: {
                   Authorization: 'Bearer ' + token,
-                }
+                },
+                responseType: "json"
             });
 
             console.log("POST de pedido feito!");
@@ -313,11 +319,33 @@ function BtnPagamento() {
     }
 
 
+    const cliqueBotao = async (e) => {
+        e.preventDefault();
+        
+        try {
+            await realizaLogin(e)
+            .then (async () => {
+                await realizaPedido(e)
+                .then (() => {
+                    setPedidoFinalizado(true);
+                })
+            })
+            
+        } catch (error) {
+            console.error("Error: ", error);
+        }
+        
+    }
+ 
     return (
         <div className="col">
-            <btn className="btn" onClick={realizaLogin}>Login</btn>
-            <btn className="btn" onClick={realizaPedido}>Pedido</btn>
-            <Link className="btn btn_pagamento float-end" to="/confirmacao">Finalizar Pedido</Link>
+            { pedidoFinalizado && (
+                <Navigate to="/confirmacao" />
+            )}
+
+            <button className="btn" onClick={realizaLogin}>Login</button>
+            <button className="btn" onClick={realizaPedido}>Pedido</button>
+            <button className="btn btn_pagamento float-end" onClick={cliqueBotao}>Finalizar Pedido</button>
         </div>
     )
 }
