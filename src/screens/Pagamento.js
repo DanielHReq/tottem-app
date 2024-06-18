@@ -17,7 +17,10 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 
-
+// improviso
+var globalCustomerName;
+var globalPhoneNumber;
+var globalMesa;
 
 /**
  * 
@@ -184,21 +187,37 @@ function ItemQuantidadeListGroupItem({ pair }) {
 
 function LoginArea() {
 
+    const [customerName, setCustomerName] = useState(null);
+    const [phoneNumber, setPhoneNumber] = useState(null);
+    const [mesa, setMesa] = useState(null);
+
+    useEffect(() => {
+        globalCustomerName = customerName
+    },[customerName])
+
+    useEffect(() => {
+        globalPhoneNumber = phoneNumber
+    },[phoneNumber])
+
+    useEffect(() => {
+        globalMesa = mesa
+    },[mesa])
+
     return (
         <div className="row w-75">
             <h4 className="text_avisos">Confirme seu cadastro</h4>
             <div className="row text_pagamento">
                 <div className="mb-3 col-6">
-                    <label for="name" className="form-label ">Nome</label>
-                    <input type="text" className="form-control" id="customer-name"/>
+                    <label for="name" className="form-label">Nome</label>
+                    <input type="text" className="form-control" id="customer-name" value={customerName} onChange={(e) => setCustomerName(e.target.value)}/>
                 </div>
                 <div className="mb-3 col-6">
                     <label for="name" className="form-label">Celular</label>
-                    <input type="text" className="form-control" id="customer-phone"/>
+                    <input type="text" className="form-control" id="customer-phone" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
                 </div>
                 <div className="mb-3 col-6">
                     <label for="name" className="form-label">Mesa</label>
-                    <input type="number" className="form-control" id="customer-table"/>
+                    <input type="number" className="form-control" id="customer-table" value={mesa} onChange={(e) => setMesa(e.target.value)}/>
                 </div>
             </div>
         </div>
@@ -224,8 +243,64 @@ function PaymentArea() {
  */
 function BtnPagamento() {
     
+    const [token, setToken] = useState(null);
+
+    const [valorPedido, setValorPedido] = useState(0);
+    const [itensPedido, setItensPedido] = useState(null);
+
+    /**
+     * Responsável pelo login 
+     */
+    const realizaLogin = async (e) => {
+        e.preventDefault();
+
+        const request_body = {
+            "nome": globalCustomerName,
+            "login": globalPhoneNumber,
+            "role": "USER"
+        }
+        
+        try {
+            console.log(request_body);
+
+            const response = await axios.post("http://localhost:8080/auth/loginreg", request_body);
+
+            const t = response.data['token'];
+
+            console.log("Login successful! Token:", t);
+
+            setToken(t);
+
+        } catch (error) {
+            console.error("Error: ", error);
+        }
+    }
+
+    const realizaPedido = async (e) => {
+        e.preventDefault();
+
+        // BigDecimal valor, String status, **Integer mesa**, Map<Long, Integer> itensPedido
+        const request_body = {
+            "valor": valorPedido,
+            "status": "Enviado",
+            "mesa": globalMesa,
+            "itensPedido": itensPedido
+        }
+
+        try {
+            const response = await axios.post("http://localhost:8080/pedidos", request_body); // usando token para permissão
+
+            console.log("POST de mesa feito!");
+        } catch (error) {
+            console.error("Error (POST): ", error);
+        }
+    }
+
+
     return (
         <div className="col">
+            <btn className="btn" onClick={realizaLogin}>Login</btn>
+            <btn className="btn" onClick={realizaPedido}>Pedido</btn>
             <Link className="btn btn_pagamento float-end" to="/confirmacao">Finalizar Pedido</Link>
         </div>
     )
