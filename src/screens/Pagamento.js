@@ -22,6 +22,8 @@ var globalCustomerName;
 var globalPhoneNumber;
 var globalMesa;
 
+var globalItemList;
+
 /**
  * 
  */
@@ -130,8 +132,7 @@ function ItemList() {
         }
 
         setItemList(localItemList);
-
-        console.log(localItemList);
+        globalItemList = localItemList;
     }
 
 
@@ -246,7 +247,6 @@ function BtnPagamento() {
     const [token, setToken] = useState(null);
 
     const [valorPedido, setValorPedido] = useState(0);
-    const [itensPedido, setItensPedido] = useState(null);
 
     /**
      * Responsável pelo login 
@@ -279,18 +279,34 @@ function BtnPagamento() {
     const realizaPedido = async (e) => {
         e.preventDefault();
 
+        const paresIdQuantidade = new Map
+
+        for (let i = 0; i < localStorage.length; i++) {
+            let key_name
+            key_name = localStorage.key(i)
+
+            if (key_name == "token") continue;
+
+            paresIdQuantidade.set(key_name, localStorage.getItem(key_name))
+
+        }
+
         // BigDecimal valor, String status, **Integer mesa**, Map<Long, Integer> itensPedido
         const request_body = {
             "valor": valorPedido,
             "status": "Enviado",
             "mesa": globalMesa,
-            "itensPedido": itensPedido
+            "itensPedido": paresIdQuantidade
         }
 
         try {
-            const response = await axios.post("http://localhost:8080/pedidos", request_body); // usando token para permissão
+            const response = await axios.post("http://localhost:8080/pedidos/", request_body, {
+                headers: {
+                  Authorization: 'Bearer ' + token,
+                }
+            });
 
-            console.log("POST de mesa feito!");
+            console.log("POST de pedido feito!");
         } catch (error) {
             console.error("Error (POST): ", error);
         }
