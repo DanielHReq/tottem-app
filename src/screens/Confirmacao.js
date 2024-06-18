@@ -1,11 +1,18 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function Confirmacao() {
+
+    useEffect(() => {
+        localStorage.clear()
+    },[])
+    
     return (
         <div className="d-flex flex-column justify-content-center align-items-center">
+
             <ConfirmacaoPedido />
 
-            <img src="https://img.freepik.com/vetores-premium/ilustracao-de-marca-de-verificacao-verde_645153-10.jpg" class="pt-3 ps-1 w-10 "></img>
+            <img className="img-fluid w-25" src="https://img.freepik.com/vetores-premium/ilustracao-de-marca-de-verificacao-verde_645153-10.jpg"/>
                     
             <BtnConfirmacao />
 
