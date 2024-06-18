@@ -35,10 +35,21 @@ export default function Pagamento() {
             
             <RevisaoPedido />
 
-            <BtnPagamento />
+            <Footer />
 
         </div>
     );
+}
+
+function Footer() {
+
+    return (
+        <div className="fixed-bottom d-flex flex-column align-items-center">
+            <div className="my-4 w-75">
+                <BtnPagamento />
+            </div>
+        </div>
+    )
 }
 
 function ReturnHome () {
