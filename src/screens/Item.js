@@ -9,6 +9,7 @@ export default function Item() {
     const {id} = useParams()
   return (
     <div className="d-flex flex-column justify-content-center align-items-center gap-5">
+        
         <ReturnHome />
     
         <ItemListDescricao id={id}/>
@@ -50,16 +51,16 @@ function ItemListDescricao ({id}) {
     [])
 
     return (
-        <>
+        <div className="my-4 w-75">
             { item ? (
-               <div class="card w-25">
-                    <div class="container-fluid box_item">
-                        <img src="https://uploads.metropoles.com/wp-content/uploads/2022/05/03124339/hamburguer-8.jpg" class="card-img-top pt-3 ps-1 w-50 "></img>
+               <div className="card">
+                    <div className="container-fluid box_item">
+                        <img src="https://uploads.metropoles.com/wp-content/uploads/2022/05/03124339/hamburguer-8.jpg" className="card-img-top pt-3 ps-1 w-50 "></img>
                     </div>
-                    <div class="card-body box_item">
-                        <h4 class="card-title text_item">{item.nome}</h4>
-                        <p class="pb-4 text_item_descricao">{item.descricao}</p>
-                        <h3 class="card-title">
+                    <div className="card-body box_item">
+                        <h4 className="card-title text_item">{item.nome}</h4>
+                        <p className="pb-4 text_item_descricao">{item.descricao}</p>
+                        <h3 className="card-title">
                             <strong>
                                 <div className="text_item">R${item.valor}</div>
                             </strong>
@@ -68,7 +69,7 @@ function ItemListDescricao ({id}) {
                 </div>
                 ) : null
             }
-        </>
+        </div>
 )
 
 }
@@ -78,20 +79,13 @@ function ReturnHome () {
     const [clicked, setClicked] = useState(false);
 
     return (
-        <div className="w-25">
+        <div>
             { clicked && (
                 <Navigate to="/cardapio" />
             )}
 
             <button className="btn btn_finaliza_pedido" onClick={() => setClicked(true)}>
-                <div className="row">
-                    <div className="col text_avisos">
-                        <i class="bi bi-chevron-compact-left h4"></i>
-                    </div>
-                    <div className="col text_avisos">
-                        <h4>Item</h4>
-                    </div>
-                </div>
+                <i className="bi bi-chevron-compact-left"/>item
             </button>
         </div>
     )

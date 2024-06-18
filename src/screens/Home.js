@@ -16,7 +16,7 @@ import { Outlet, Link } from "react-router-dom";
 export default function HomePage() {
 
     return (
-        <div className="d-flex flex-column  align-items-center gap-5">
+        <div className="d-flex flex-column align-items-center gap-5">
             <div className="w-25">
                 <h3 className="text_avisos">Cardápio</h3>
             </div>
@@ -77,16 +77,28 @@ function BtnPedido() {
 function ItemListGroupItem({ item }) {
 
     return (
-        <div className="row box_item rounded-1 border-1 mb-4 w-25  top-50 start-50">
-                <img src="https://uploads.metropoles.com/wp-content/uploads/2022/05/03124339/hamburguer-8.jpg" class="col pt-2 ps-2 w-50 "></img>
+        <div className="list-group-item box_item rounded border-0 mb-4">
+            <div className="d-flex w-100 text_item">
+
+                <div className="col-2">
+                    <div className="ratio ratio-1x1">
+                        <img className="img-fluid object-fit-cover rounded" src="https://uploads.metropoles.com/wp-content/uploads/2022/05/03124339/hamburguer-8.jpg"/>
+                    </div>
+                </div>
+                
                 <div className="col p-2 pt-3">
                     <p className="mb-1">{item.nome}</p>
                     <h5>R${item.valor}</h5>
                 </div>
+
                 <div className="col p-2 pt-3">
-                    <QuantidadeItem id={item.id} /><br/>
-                    <Link className="text_item float-end" to={"/item/" + item.id} >detalhes</Link>
+                    <div className="float-end">
+                        <QuantidadeItem id={item.id} /><br/>
+                        <Link className="text_item float-end" to={"/item/" + item.id} >detalhes</Link>
+                    </div>
                 </div>
+
+            </div>
         </div>
     )
 }
@@ -142,8 +154,7 @@ function ItemList() {
 
     useEffect(() => {
         showItens();
-    },
-        [])
+    }, [])
 
 
     const showItens = async (e) => {
@@ -172,7 +183,7 @@ function ItemList() {
     }
 
     return (
-        <div className="my-4">
+        <div className="my-4 w-75">
             {errorMessage && <p>{errorMessage}</p>}
             {itens ? (
                 <div className="list-group">

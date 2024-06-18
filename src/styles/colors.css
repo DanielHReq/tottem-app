@@ -1,6 +1,8 @@
 
-    .btn_finaliza_pedido, .btn_finaliza_pedido:hover, .btn_finaliza_pedido:visited {
+    .btn_finaliza_pedido, .btn_finaliza_pedido:hover {
         background-color: #fcf7d1;
+        color: #8c0005;
+        font-size: x-large;
     }
 
     .background_color, .background_color:hover {
