@@ -65,7 +65,7 @@ function ReturnHome () {
 function RevisaoPedido() {
 
     return (
-        <div className="d-flex flex-column align-items-center">
+        <div className="d-flex flex-column align-items-center" style={{}}>
             <h4 className="text_avisos pb-4">Revise os itens do pedido</h4>
             <ItemList />
         </div>
