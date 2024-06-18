@@ -343,8 +343,6 @@ function BtnPagamento() {
                 <Navigate to="/confirmacao" />
             )}
 
-            <button className="btn" onClick={realizaLogin}>Login</button>
-            <button className="btn" onClick={realizaPedido}>Pedido</button>
             <button className="btn btn_pagamento float-end" onClick={cliqueBotao}>Finalizar Pedido</button>
         </div>
     )
