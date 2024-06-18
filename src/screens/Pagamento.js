@@ -65,8 +65,8 @@ function ReturnHome () {
 function RevisaoPedido() {
 
     return (
-        <div className="d-flex flex-column align-items-center" style={{}}>
-            <h4 className="text_avisos pb-4">Revise os itens do pedido</h4>
+        <div className="d-flex flex-column align-items-center w-100">
+            <h4 className="text_avisos pb-4 w-75">Revise os itens do pedido</h4>
             <ItemList />
         </div>
     )
@@ -152,18 +152,15 @@ function ItemQuantidadeListGroupItem({ pair }) {
         <div className="list-group-item box_item rounded border-0 mb-4">
             <div className="d-flex text_item">
                 
-                <div className="col-8 p-2 pt-3">
-                    <div className="row">
-                        <div className="col-6">
-                            <div className="ratio ratio-1x1">
-                                <img className="img-fluid object-fit-cover rounded" src="https://uploads.metropoles.com/wp-content/uploads/2022/05/03124339/hamburguer-8.jpg"/>
-                            </div>
-                        </div>
-                        <div className="col-6">
-                            <p className="mb-1">{pair[0].nome}</p>
-                            <h5>R${pair[0].valor}</h5>
-                        </div>
+                <div className="col-2">
+                    <div className="ratio ratio-1x1">
+                        <img className="img-fluid object-fit-cover rounded" src="https://uploads.metropoles.com/wp-content/uploads/2022/05/03124339/hamburguer-8.jpg"/>
                     </div>
+                </div>
+
+                <div className="col p-2 pt-3">
+                    <p className="mb-1">{pair[0].nome}</p>
+                    <h5>R${pair[0].valor}</h5>
                 </div>
 
                 <div className="col-4 p-2 pt-3 text-end">
@@ -177,7 +174,7 @@ function ItemQuantidadeListGroupItem({ pair }) {
 function LoginArea() {
 
     return (
-        <div>
+        <div className="row w-75">
             <h4 className="text_avisos">Confirme seu cadastro</h4>
             <div className="row text_pagamento">
                 <div className="mb-3 col-6">
@@ -199,7 +196,7 @@ function LoginArea() {
 
 function PaymentArea() {
     return (
-        <div>
+        <div className="row  w-75">
             <h4 className="text_avisos">Realize o pagamento</h4>
             código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix
         </div>
