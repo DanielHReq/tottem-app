@@ -15,7 +15,7 @@
 
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 
 
@@ -25,10 +25,10 @@ import { Link } from "react-router-dom";
 export default function Pagamento() {
 
     return (
-        <div className="mx-5 mt-5">
+        <div className="d-flex flex-column align-items-center gap-4">
 
-            <Link to="http://localhost:3000/cardapio"><h3>Pagamento</h3></Link>
-
+            <ReturnHome />
+            
             <PaymentArea />
 
             <LoginArea />
@@ -41,6 +41,22 @@ export default function Pagamento() {
     );
 }
 
+function ReturnHome () {
+
+    const [clicked, setClicked] = useState(false);
+
+    return (
+        <div>
+            { clicked && (
+                <Navigate to="/cardapio" />
+            )}
+
+            <button className="btn btn_finaliza_pedido" onClick={() => setClicked(true)}>
+                <i className="bi bi-chevron-compact-left"/>Pagamento
+            </button>
+        </div>
+    )
+} 
 
 /**
  * Resgata Itens e quantidades do localStorage
@@ -49,8 +65,8 @@ export default function Pagamento() {
 function RevisaoPedido() {
 
     return (
-        <div>
-            <h4>Revise os itens do pedido</h4>
+        <div className="d-flex flex-column align-items-center">
+            <h4 className="text_avisos pb-4">Revise os itens do pedido</h4>
             <ItemList />
         </div>
     )
@@ -112,13 +128,11 @@ function ItemList() {
     }
 
     return (
-        <div>
+        <div className="my-4 w-75">
             {errorMessage && <p>{errorMessage}</p>}
             {itemList ? (
-                <div>
-                    <div className="list-group">
-                        {itemList.map(showItem)}
-                    </div>
+                <div className="list-group">
+                    {itemList.map(showItem)}
                 </div>
             ) : null
             }
@@ -135,31 +149,39 @@ function ItemList() {
 function ItemQuantidadeListGroupItem({ pair }) {
 
     return (
-        <div className="list-group-item">
-            <div className="d-flex w-100 justify-content-between">
-                <div className="col-8">
-                    <h5 className="mb-1">{pair[0].nome}</h5>
-                    <small>Valor: {pair[0].valor}</small>
+        <div className="list-group-item box_item rounded border-0 mb-4">
+            <div className="d-flex text_item">
+                
+                <div className="col-8 p-2 pt-3">
+                    <div className="row">
+                        <div className="col-6">
+                            <div className="ratio ratio-1x1">
+                                <img className="img-fluid object-fit-cover rounded" src="https://uploads.metropoles.com/wp-content/uploads/2022/05/03124339/hamburguer-8.jpg"/>
+                            </div>
+                        </div>
+                        <div className="col-6">
+                            <p className="mb-1">{pair[0].nome}</p>
+                            <h5>R${pair[0].valor}</h5>
+                        </div>
+                    </div>
                 </div>
-                <div className="col-4">
-                    <small>Quantidade: {pair[1]}</small>
+
+                <div className="col-4 p-2 pt-3 text-end">
+                    Quantidade: {pair[1]}
                 </div>
             </div>
         </div>
     )
 }
 
-
-
-
 function LoginArea() {
 
     return (
         <div>
-            <h4>Confirme seu cadastro</h4>
-            <div className="row">
+            <h4 className="text_avisos">Confirme seu cadastro</h4>
+            <div className="row text_pagamento">
                 <div className="mb-3 col-6">
-                    <label for="name" className="form-label">Nome</label>
+                    <label for="name" className="form-label ">Nome</label>
                     <input type="text" className="form-control" id="customer-name"/>
                 </div>
                 <div className="mb-3 col-6">
@@ -178,7 +200,7 @@ function LoginArea() {
 function PaymentArea() {
     return (
         <div>
-            <h4>Realize o pagamento</h4>
+            <h4 className="text_avisos">Realize o pagamento</h4>
             código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix
         </div>
     )
@@ -196,7 +218,7 @@ function BtnPagamento() {
     
     return (
         <div className="col">
-            <Link className="btn btn-warning float-end" to="/confirmacao">Finalizar Pedido</Link>
+            <Link className="btn btn_pagamento float-end" to="/confirmacao">Finalizar Pedido</Link>
         </div>
     )
 }

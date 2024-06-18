@@ -26,6 +26,7 @@
     }
 
     .btn_pagamento, .btn_pagamento:hover{
+        color: #ffffff;
         background-color: #008c0e;
     }
 

@@ -16,10 +16,8 @@ import { Outlet, Link } from "react-router-dom";
 export default function HomePage() {
 
     return (
-        <div className="d-flex flex-column align-items-center gap-5">
-            <div className="w-25">
-                <h3 className="text_avisos">Cardápio</h3>
-            </div>
+        <div className="d-flex flex-column align-items-center gap-4">
+            <h3 className="text_avisos">Cardápio</h3>
 
             <ItemList />
 
