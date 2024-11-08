@@ -244,11 +244,28 @@ function PaymentArea() {
  */
 function BtnPagamento() {
     
-    const [valorPedido, setValorPedido] = useState(0);
+    //const [valorPedido, setValorPedido] = useState(0);
 
     const [pedidoFinalizado, setPedidoFinalizado] = useState(false);
 
+    const paresIdQuantidade = new Map();
+
     let token;
+    let valorPedido = 0;
+
+    /**
+     * Leitura do LocalStorage
+     */
+    const leituraLocal = () => {
+        for (let i = 0; i < localStorage.length; i++) {
+            let key_name
+            key_name = localStorage.key(i)
+
+            if (key_name == "token") continue;
+
+            paresIdQuantidade.set(key_name, localStorage.getItem(key_name))
+        }
+    }
 
     /**
      * Responsável pelo login 
@@ -279,18 +296,6 @@ function BtnPagamento() {
     const realizaPedido = async (e) => {
         e.preventDefault();
 
-        const paresIdQuantidade = new Map()
-
-        for (let i = 0; i < localStorage.length; i++) {
-            let key_name
-            key_name = localStorage.key(i)
-
-            if (key_name == "token") continue;
-
-            paresIdQuantidade.set(key_name, localStorage.getItem(key_name))
-
-        }
-
         // BigDecimal valor, String status, String mesa, String celular, Map<Long, Integer> itensPedido
         const request_body = {
             "valor": valorPedido,
@@ -318,11 +323,37 @@ function BtnPagamento() {
         }
     }
 
+    const atualizaValor = async (id, quantidade) => {
 
+        try {
+            const response = await axios.get("http://localhost:8080/cardapio/"+id, {
+                responseType: "json", // Specify responseType as JSON
+            });
+
+            valorPedido += response.data[0].valor * quantidade
+
+            console.log(valorPedido)
+        } catch (error) {
+            console.error("Error (GET Item): ", error)
+        }
+    }
+
+    /**
+     *  Realiza login
+     *  Calcula valores
+     *      Realiza pedido
+     *          Finaliza
+     */
     const cliqueBotao = async (e) => {
         e.preventDefault();
         
         try {
+
+            leituraLocal()
+
+            // cálculo valores
+            await Promise.allSettled(Array.from(paresIdQuantidade).map(([k,v]) => atualizaValor(k,v)))
+
             await realizaLogin(e)
             .then (async () => {
                 await realizaPedido(e)

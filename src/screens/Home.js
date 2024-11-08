@@ -10,7 +10,7 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, Navigate } from "react-router-dom";
 
 
 export default function HomePage() {
@@ -66,13 +66,22 @@ function BtnPedido() {
     
             // tela de confirmação
     
-        }
-    */
+        }*/
+    const [finalizarPedido, setFinalizarPedido] = useState(false);
+
+    const cliqueBotao = async (e) => {
+        e.preventDefault();
+
+        if (localStorage.length) setFinalizarPedido(true);
+    }
+
     return (
         <div className="col pb-5">
-            <Link className="btn btn_finaliza_pedido float-end" to="/pagamento">
-                <div className="text_avisos">Finalizar Pedido</div>
-            </Link>
+            { finalizarPedido && (
+                <Navigate to="/pagamento" />
+            )}
+
+            <button className="btn btn_finaliza_pedido float-end" onClick={cliqueBotao}>Finalizar Pedido</button>
         </div>
     )
 }
