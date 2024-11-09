@@ -170,11 +170,11 @@ function ItemList() {
 
 
     useEffect(() => {
-        showItens();
+        refreshItens();
     }, [])
 
 
-    const showItens = async (e) => {
+    const refreshItens = async (e) => {
         //e.preventDefault();
 
         try {
