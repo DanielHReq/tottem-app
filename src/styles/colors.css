@@ -13,8 +13,20 @@
         background-color: #b52c00;
     }
 
+    .box_item2, .box_item2:hover {
+        background-color: #fcf7d1;
+    }
+
     .text_item, .text_item:hover {
         color: #fcf7d1;
+    }
+
+    .text_item2, .text_item2:hover {
+        color: #b52c00;
+    }
+
+    .marked_item, .marked_item:hover {
+        background-color: gray;
     }
 
     .text_item_descricao, .text_item_descricao:hover {
