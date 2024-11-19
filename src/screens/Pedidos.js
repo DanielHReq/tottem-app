@@ -38,6 +38,10 @@ function ItemListGroupItem({ item }) {
         setMarcado(!marcado);
     }
 
+    useEffect(() => {
+        console.log("teste");
+    })
+
     const areaInterna = () => {
         return (
             <div className="d-flex w-100 text_item2">
@@ -179,7 +183,7 @@ function PedidoList() {
 
     const showPedido = (pedido) => {
         return (
-            <PedidoListGroupItem pedido={pedido} refresh={refreshPedidos} />
+            <PedidoListGroupItem key={pedido.id} pedido={pedido} refresh={refreshPedidos} />
         )
     }
 
