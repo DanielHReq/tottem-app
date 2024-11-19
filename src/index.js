@@ -12,6 +12,7 @@ import Item from './screens/Item.js';
 import Pedidos from './screens/Pedidos.js';
 import Pagamento from './screens/Pagamento.js';
 import Confirmacao from './screens/Confirmacao.js';
+import LoginScreen from './screens/AdminLogin.js';
 
 
 /*const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
           {
             path: "confirmacao",
             element: <Confirmacao />
+          },
+          {
+            path: "admlogin",
+            element: <LoginScreen />
           }
       ]
   }
