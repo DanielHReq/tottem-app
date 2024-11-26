@@ -178,7 +178,15 @@ function PedidoList() {
 
     useEffect(() => {
         refreshPedidos();
-    }, [refreshPedidos])
+
+        // polling
+        const interval = setInterval(() => {
+            refreshPedidos();
+            console.log(".");
+        }, 5000);
+
+        return () => clearInterval(interval);
+    }, [])
 
 
     const showPedido = (pedido) => {
