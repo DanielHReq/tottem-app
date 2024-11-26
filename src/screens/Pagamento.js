@@ -209,16 +209,16 @@ function LoginArea() {
             <h4 className="text_avisos">Confirme seu cadastro</h4>
             <div className="row text_pagamento">
                 <div className="mb-3 col-6">
-                    <label for="name" className="form-label">Nome</label>
-                    <input type="text" className="form-control" id="customer-name" value={customerName} onChange={(e) => setCustomerName(e.target.value)}/>
+                    <label for="customer-name" className="form-label">Nome</label>
+                    <input type="text" className="form-control" id="customer-name" value={customerName} onChange={(e) => setCustomerName(e.target.value)} required />
                 </div>
                 <div className="mb-3 col-6">
-                    <label for="name" className="form-label">Celular</label>
-                    <input type="text" className="form-control" id="customer-phone" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
+                    <label for="customer-phone" className="form-label">Celular</label>
+                    <input type="text" className="form-control" id="customer-phone" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required />
                 </div>
                 <div className="mb-3 col-6">
-                    <label for="name" className="form-label">Mesa</label>
-                    <input type="number" className="form-control" id="customer-table" value={mesa} onChange={(e) => setMesa(e.target.value)}/>
+                    <label for="customer-table" className="form-label">Mesa</label>
+                    <input type="number" className="form-control" id="customer-table" value={mesa} onChange={(e) => setMesa(e.target.value)} required />
                 </div>
             </div>
         </div>
@@ -247,6 +247,7 @@ function BtnPagamento() {
     //const [valorPedido, setValorPedido] = useState(0);
 
     const [pedidoFinalizado, setPedidoFinalizado] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
 
     const paresIdQuantidade = new Map();
 
@@ -339,6 +340,7 @@ function BtnPagamento() {
     }
 
     /**
+     *  Confere dados preenchidos
      *  Realiza login
      *  Calcula valores
      *      Realiza pedido
@@ -348,6 +350,11 @@ function BtnPagamento() {
         e.preventDefault();
         
         try {
+
+            // conferindo dados obrigatórios
+            if (!globalCustomerName | !globalPhoneNumber | !globalMesa) {
+                throw(new Error("É necessário preencheer as informações pessoais e mesa antes de prosseguir."));
+            }
 
             leituraLocal()
 
@@ -363,7 +370,12 @@ function BtnPagamento() {
             })
             
         } catch (error) {
+            if (!(error instanceof Error)) {
+                error = new Error(error);
+            }
             console.error("Error: ", error);
+            console.error("Message: ", error.message);
+            setErrorMessage(error.message);
         }
         
     }
@@ -375,6 +387,10 @@ function BtnPagamento() {
             )}
 
             <button className="btn btn_pagamento float-end" onClick={cliqueBotao}>Finalizar Pedido</button>
+
+            { errorMessage && (
+                <div className="row">{errorMessage}</div>
+            )}
         </div>
     )
 }
