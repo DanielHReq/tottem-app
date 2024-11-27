@@ -165,7 +165,10 @@ function PedidoList() {
         console.log("refreshing...")
         try {
             const response = await axios.get("http://localhost:8080/pedidos/aberto", {
-                responseType: "json",
+                headers: {
+                    Authorization: 'Bearer ' + localStorage['token'],
+                },
+                responseType: "json"
             });
 
             //console.log(response.data)
@@ -203,7 +206,7 @@ function PedidoList() {
                     {pedidos.map(showPedido)}
                 </div>
             ) : (
-                <p>Não há pedidos no momento.</p>
+                <p>Não há pedidos no momento.<br/>Tem certeza que você está logado?</p>
             )
             }
         </div>

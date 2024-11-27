@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link, Navigate } from "react-router-dom";
 
 export default function LoginScreen() {
 
@@ -20,7 +21,7 @@ export default function LoginScreen() {
         try {
             const response = await axios.post("http://localhost:8080/auth/login", request_body);
 
-            const token = response.data['Token'];
+            const token = response.data['token'];
 
             localStorage.setItem("token", token);
             console.log("Login successful! Token saved in local storage:", token);
@@ -86,6 +87,7 @@ function Logout() {
 function Provisorio () {
 
     const [errorMessage, setErrorMessage] = useState(null);
+    const [logged, setLogged] = useState(null);
 
 
     const testLogin = async (e) => {
@@ -99,6 +101,7 @@ function Provisorio () {
             }
             
             console.log("You are logged", token);
+            setLogged(true);
             // Optionally, you can redirect the user to another page or perform other actions upon successful login
         } catch (error) {
             console.error("Error showing carrinhos:", error);
@@ -111,6 +114,9 @@ function Provisorio () {
         <div>
             <h1>Teste provisório</h1>
             {errorMessage && <p>{errorMessage}</p>}
+            { logged && (
+                <Navigate to="/pedidos" />
+            )}
             <button onClick={testLogin}>Estou logado?</button>
         </div>
     );
