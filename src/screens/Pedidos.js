@@ -156,6 +156,7 @@ function PedidoList() {
 
     const [pedidos, setPedidos] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
+    const [redirect, setRedirect] = useState(false);
 
     
     /**
@@ -163,6 +164,7 @@ function PedidoList() {
      */
     let refreshPedidos = React.useCallback(async () => {
         console.log("refreshing...")
+        if (localStorage['token'] == null) { setRedirect(true); return; }
         try {
             const response = await axios.get("http://localhost:8080/pedidos/aberto", {
                 headers: {
@@ -200,6 +202,7 @@ function PedidoList() {
 
     return (
         <div className="my-4 w-75">
+            {redirect && <Navigate to={"/admlogin"} />}
             {errorMessage && <p>{errorMessage}</p>}
             {pedidos ? (
                 <div className="list-group">
