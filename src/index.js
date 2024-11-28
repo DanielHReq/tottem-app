@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client';
 //import './index.css';
 import reportWebVitals from './reportWebVitals';
 
-import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Home from './screens/Home.js';
 import Template from './screens/Template.js';
@@ -13,6 +13,7 @@ import Pedidos from './screens/Pedidos.js';
 import Pagamento from './screens/Pagamento.js';
 import Confirmacao from './screens/Confirmacao.js';
 import LoginScreen from './screens/AdminLogin.js';
+import Iniciar from './screens/Iniciar.js';
 
 
 /*const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -22,42 +23,46 @@ root.render(
 
 
 const router = createBrowserRouter([
-  {
-      path: "/",
-      element: <Template />,
-      //errorElement: <ErrorScreen/>,
-      children: [
-          {
-            path: "cardapio",
-            element: <Home />
-          },  
-          {
-            path: "item/:id",
-            element: <Item />
-          },              
-          {
-            path: "pedidos",
-            element: <Pedidos />
-          },              
-          {
-            path: "pagamento",
-            element: <Pagamento />
-          },              
-          {
-            path: "confirmacao",
-            element: <Confirmacao />
-          },
-          {
-            path: "admlogin",
-            element: <LoginScreen />
-          }
-      ]
-  }
+    {
+        path: "/",
+        element: <Template />,
+        //errorElement: <ErrorScreen/>,
+        children: [
+            {
+                path: "inicio",
+                element: <Iniciar />
+            },
+            {
+                path: "cardapio",
+                element: <Home />
+            },
+            {
+                path: "item/:id",
+                element: <Item />
+            },
+            {
+                path: "pedidos",
+                element: <Pedidos />
+            },
+            {
+                path: "pagamento",
+                element: <Pagamento />
+            },
+            {
+                path: "confirmacao",
+                element: <Confirmacao />
+            },
+            {
+                path: "admlogin",
+                element: <LoginScreen />
+            }
+        ]
+    }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <RouterProvider router={router}/>
+    <RouterProvider router={router} />
 );
 
 

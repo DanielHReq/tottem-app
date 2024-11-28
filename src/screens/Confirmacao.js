@@ -33,7 +33,7 @@ function BtnConfirmacao() {
 
     return (
         <div className="d-flex justify-content-center">
-            <Link className="text_avisos" to="/cardapio">Cardápio</Link>
+            <Link className="text_avisos" to="/inicio">Cardápio</Link>
         </div>
     )
 }

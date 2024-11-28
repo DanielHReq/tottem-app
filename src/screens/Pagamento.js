@@ -82,7 +82,8 @@ function RevisaoPedido() {
 
     return (
         <div className="d-flex flex-column align-items-center w-100">
-            <h4 className="text_avisos pb-4 w-75">Revise os itens do pedido</h4>
+            <div className="row w-75"><h4 className="text_avisos">Revise os itens do pedido</h4></div>
+            
             <ItemList />
         </div>
     )
@@ -227,7 +228,7 @@ function LoginArea() {
 
 function PaymentArea() {
     return (
-        <div className="row  w-75">
+        <div className="row w-75">
             <h4 className="text_avisos">Realize o pagamento</h4>
             código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix-código-pix
         </div>
