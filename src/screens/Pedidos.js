@@ -17,12 +17,32 @@ export default function Pedidos() {
     return (
         <div>
             <div className="d-flex flex-column align-items-center gap-4">
+                <div className="w-75"><ReturnToLogin /></div>
                 <h3 className="text_avisos">Pedidos</h3>
                 <PedidoList />
             </div>
         </div>
     );
 }
+
+
+
+function ReturnToLogin () {
+
+    const [clicked, setClicked] = useState(false);
+
+    return (
+        <div>
+            { clicked && (
+                <Navigate to="/admlogin" />
+            )}
+
+            <button className="btn btn_retorno_login" onClick={() => setClicked(true)}>
+                <i className="bi bi-chevron-compact-left"/>Voltar ao login
+            </button>
+        </div>
+    )
+} 
 
 
 /**
